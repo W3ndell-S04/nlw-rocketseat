@@ -12,8 +12,10 @@ from src.controllers.link_creator import LinkCreator
 from src.models.repositories.trips_repository import TripsRepository
 from src.models.repositories.emails_to_invite_repository import EmailsToInviteRepository
 from src.models.repositories.links_repository import LinksRepository
+
 ##importando o gerente de conexoes
 from src.models.settings.db_connection_handler import db_connection_handler
+
 
 @trips_routes_bp.route("/trips", methods=["POST"])
 def create_trip():
@@ -26,6 +28,7 @@ def create_trip():
 
 
     return jsonify(response["body"]), response["status_code"]
+
 
 @trips_routes_bp.route("/trips/<tripId>", methods=["GET"])
 def find_trip(tripId):
@@ -47,7 +50,7 @@ def confirm_trip(tripId):
 
     return jsonify(response["body"]), response["status_code"]
 
-@trips_routes_bp.route("/trips/<tripId>/links", methods=["POST"])
+@trips_routes_bp.route("/trips/<tripId>/confirm", methods=["POST"])
 def create_trip_link(tripId):
     conn = db_connection_handler.get_connection()
     links_repository = LinksRepository(conn)
